@@ -6,7 +6,7 @@
 /*   By: amufleh <amufleh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 12:59:52 by amufleh           #+#    #+#             */
-/*   Updated: 2025/09/21 11:34:43 by amufleh          ###   ########.fr       */
+/*   Updated: 2025/09/21 13:15:14 by amufleh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,30 @@
 
 char	*fill_words(int fd, char *words_read)
 {
-	char	*str;
+	char	*buffer;
 	int		bytes;
 
-	str = malloc(BUFFER_SIZE + 1);
-	if (!str)
+	buffer = malloc(BUFFER_SIZE + 1);
+	if (!buffer)
 		return (NULL);
 	bytes = 1;
 	while (bytes > 0)
 	{
 		if (ft_strchr(words_read, '\n'))
 			break;
-		bytes = read(fd, str, BUFFER_SIZE);
+		bytes = read(fd, buffer, BUFFER_SIZE);
 		if (bytes < 0)
 		{
-			free(str);
+			free(buffer);
 			free(words_read);
 			return (NULL);
 		}
 		if (bytes == 0)
 			break;
-		str[bytes] = '\0';
-		words_read = ft_strjoin(words_read, str);
+		buffer[bytes] = '\0';
+		words_read = ft_strjoin(words_read, buffer);
 	}
-	free(str);
+	free(buffer);
 	return (words_read);
 }
 
@@ -61,10 +61,7 @@ char	*write2endl(char *words_read)
 		i++;
 	}
 	if (words_read[i] == '\n')
-	{
-		line[i] = '\n';
-		i++;
-	}
+		line[i++] = '\n';
 	line[i] = '\0';
 	return (line);
 }
@@ -89,7 +86,9 @@ char	*final_words(char *words_read)
 	i++;
 	leftover = malloc(ft_strlen(words_read + i) + 1);
 	if (!leftover)
+	{	free(words_read);
 		return (NULL);
+	}
 	while (words_read[i])
 		leftover[j++] = words_read[i++];
 	leftover[j] = '\0';
@@ -97,18 +96,24 @@ char	*final_words(char *words_read)
 	return (leftover);
 }
 
-char	*get_next_line(int fd)
+char *get_next_line(int fd)
 {
-	static char	*words_read;
-	char		*line;
+	static char *words_read;
+	char	*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 )
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	words_read = fill_words(fd, words_read);
 	if (!words_read)
 		return (NULL);
 	line = write2endl(words_read);
 	words_read = final_words(words_read);
+	if (!line)
+	{
+		free(line);
+		free(words_read);
+		return (NULL);
+	}
 	return (line);
 }
 // int 	main()
