@@ -6,7 +6,7 @@
 /*   By: amufleh <amufleh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 12:59:52 by amufleh           #+#    #+#             */
-/*   Updated: 2025/09/18 17:19:37 by amufleh          ###   ########.fr       */
+/*   Updated: 2025/09/21 11:34:43 by amufleh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,20 @@ char	*fill_words(int fd, char *words_read)
 	str = malloc(BUFFER_SIZE + 1);
 	if (!str)
 		return (NULL);
-	while (!ft_strchr(words_read, '\n'))
+	bytes = 1;
+	while (bytes > 0)
 	{
+		if (ft_strchr(words_read, '\n'))
+			break;
 		bytes = read(fd, str, BUFFER_SIZE);
-		if (bytes <= 0)
+		if (bytes < 0)
 		{
 			free(str);
+			free(words_read);
 			return (NULL);
 		}
+		if (bytes == 0)
+			break;
 		str[bytes] = '\0';
 		words_read = ft_strjoin(words_read, str);
 	}
@@ -40,10 +46,12 @@ char	*write2endl(char *words_read)
 	char	*line;
 	int		i;
 
+	if (!words_read || !*words_read)
+		return (NULL);
 	i = 0;
 	while (words_read[i] && words_read[i] != '\n')
 		i++;
-	line = malloc(i + 2);
+	line = malloc(i + (words_read[i] == '\n') + 1);
 	if (!line)
 		return (NULL);
 	i = 0;
@@ -54,7 +62,7 @@ char	*write2endl(char *words_read)
 	}
 	if (words_read[i] == '\n')
 	{
-		line[i] = words_read[i];
+		line[i] = '\n';
 		i++;
 	}
 	line[i] = '\0';
@@ -69,6 +77,8 @@ char	*final_words(char *words_read)
 
 	i = 0;
 	j = 0;
+	if (!words_read)
+		return (NULL);
 	while (words_read[i] && words_read[i] != '\n')
 		i++;
 	if (!words_read[i])
@@ -76,10 +86,10 @@ char	*final_words(char *words_read)
 		free(words_read);
 		return (NULL);
 	}
-	leftover = malloc(ft_strlen(words_read) - i - 1);
+	i++;
+	leftover = malloc(ft_strlen(words_read + i) + 1);
 	if (!leftover)
 		return (NULL);
-	i++;
 	while (words_read[i])
 		leftover[j++] = words_read[i++];
 	leftover[j] = '\0';
@@ -92,7 +102,7 @@ char	*get_next_line(int fd)
 	static char	*words_read;
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 )
 		return (NULL);
 	words_read = fill_words(fd, words_read);
 	if (!words_read)
@@ -101,30 +111,30 @@ char	*get_next_line(int fd)
 	words_read = final_words(words_read);
 	return (line);
 }
-int 	main()
-{
-	int fd = open("text.txt", O_RDONLY | O_CREAT, 0777);
-	char *line;
+// int 	main()
+// {
+// 	int fd = open("text.txt", O_RDONLY);
+// 	char *line;
 
-	while ((line = get_next_line(fd)))
-	{
-		printf("%s", line);
-		free(line);
-	}
-	// printf("%s", get_next_line(fd));
-	// printf("%s", get_next_line(fd));
-	// printf("%s", get_next_line(fd));
-	// printf("%s",get_next_line(fd));
-	// printf("%s", get_next_line(fd));
-	// printf("%s", get_next_line(fd));
-	// printf("%s", get_next_line(fd));
-	// printf("%s",get_next_line(fd));
-	// printf("%s",get_next_line(fd));
-	// printf("%s",get_next_line(fd));
-	// printf("%s",get_next_line(fd));
-	// printf("%s",get_next_line(fd));
-	// printf("%s",get_next_line(fd));
-	// printf("%s",get_next_line(fd));
-	close(fd);
-	return (0);
-}
+// 	while ((line = get_next_line(fd)))
+// 	{
+// 		printf("%s", line);
+// 		free(line);
+// 	}
+// 	// printf("%s", get_next_line(fd));
+// 	// printf("%s", get_next_line(fd));
+// 	// printf("%s", get_next_line(fd));
+// 	// printf("%s",get_next_line(fd));
+// 	// printf("%s", get_next_line(fd));
+// 	// printf("%s", get_next_line(fd));
+// 	// printf("%s", get_next_line(fd));
+// 	// printf("%s",get_next_line(fd));
+// 	// printf("%s",get_next_line(fd));
+// 	// printf("%s",get_next_line(fd));
+// 	// printf("%s",get_next_line(fd));
+// 	// printf("%s",get_next_line(fd));
+// 	// printf("%s",get_next_line(fd));
+// 	// printf("%s",get_next_line(fd));
+// 	close(fd);
+// 	return (0);
+// }

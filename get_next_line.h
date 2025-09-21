@@ -6,7 +6,7 @@
 /*   By: amufleh <amufleh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 13:00:54 by amufleh           #+#    #+#             */
-/*   Updated: 2025/09/18 17:19:49 by amufleh          ###   ########.fr       */
+/*   Updated: 2025/09/21 09:58:58 by amufleh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #define GET_NEXT_LINE_H
 
 #ifndef BUFFER_SIZE
-#define BUFFER_SIZE 2
+#define BUFFER_SIZE 42
 #endif
 
 #include <unistd.h>
