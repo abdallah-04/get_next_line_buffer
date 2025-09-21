@@ -6,7 +6,7 @@
 /*   By: amufleh <amufleh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:29:59 by amufleh           #+#    #+#             */
-/*   Updated: 2025/09/21 12:05:16 by amufleh          ###   ########.fr       */
+/*   Updated: 2025/09/21 15:40:46 by amufleh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,33 +46,37 @@ char	*ft_strdup(const char *s1)
 	return (copy);
 }
 
+char	*ft_strcpy(char *dest, const char *src)
+{
+	int	i;
+
+	i = 0;
+	while (src[i])
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
+
 char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*new_str;
-	size_t	i;
-	size_t	j;
-	size_t len1;
-	size_t len2;
+	size_t	len1;
+	size_t	len2;
 
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
 	if (!s1)
 		return (ft_strdup(s2));
-	i = 0;
-	j = 0;
 	if (!s1 || !s2)
 		return (NULL);
 	new_str = malloc(((len1 + len2) + 1) * sizeof(char));
 	if (!new_str)
 		return (NULL);
-	while (i < len1)
-	{
-		new_str[i] = s1[i];
-		i++;
-	}
-	while (i < (len1 + len2))
-		new_str[i++] = s2[j++];
-	new_str[i] = '\0';
+	ft_strcpy(new_str, s1);
+	ft_strcpy(new_str + len1, s2);
 	free(s1);
 	return (new_str);
 }

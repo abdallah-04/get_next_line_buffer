@@ -5,23 +5,21 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: amufleh <amufleh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/16 13:00:54 by amufleh           #+#    #+#             */
-/*   Updated: 2025/09/21 09:58:58 by amufleh          ###   ########.fr       */
+/*   Created: 2025/09/21 15:27:09 by amufleh           #+#    #+#             */
+/*   Updated: 2025/09/21 18:47:00 by amufleh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #ifndef GET_NEXT_LINE_H
-#define GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
 
-#ifndef BUFFER_SIZE
-#define BUFFER_SIZE 42
-#endif
-
-#include <unistd.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
+# endif
+# include <unistd.h>
+# include <fcntl.h>
+# include <stdio.h>
+# include <stdlib.h>
 
 size_t	ft_strlen(const char *s);
 char	*ft_strdup(const char *s1);
@@ -33,4 +31,3 @@ char	*final_words(char *words_read);
 char	*get_next_line(int fd);
 
 #endif
-
