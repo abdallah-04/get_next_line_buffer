@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amufleh <amufleh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/16 12:59:52 by amufleh           #+#    #+#             */
-/*   Updated: 2025/09/22 09:00:16 by amufleh          ###   ########.fr       */
+/*   Created: 2025/09/22 09:01:01 by amufleh           #+#    #+#             */
+/*   Updated: 2025/09/22 09:51:25 by amufleh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,19 +99,19 @@ char	*final_words(char *words_read)
 
 char	*get_next_line(int fd)
 {
-	static char	*words_read;
+	static char	*words_read[1024];
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	words_read = fill_words(fd, words_read);
-	if (!words_read)
+	words_read[fd] = fill_words(fd, words_read[fd]);
+	if (!words_read[fd])
 		return (NULL);
-	line = write2endl(words_read);
-	words_read = final_words(words_read);
+	line = write2endl(words_read[fd]);
+	words_read[fd] = final_words(words_read[fd]);
 	if (!line)
 	{
-		free(words_read);
+		free(words_read[fd]);
 		return (NULL);
 	}
 	return (line);
@@ -119,12 +119,12 @@ char	*get_next_line(int fd)
 // int main()
 // {
 // 	int fd = open("text.txt", O_RDONLY | O_CREAT, 0644);
-// 	char *line;
-// 	printf("%s",get_next_line(41));
-// 	while((line = get_next_line(-1)))
+// 	int fd2 = open("text2.txt", O_RDONLY | O_CREAT, 0644);
+// 	int i = 6;
+// 	while(i--)
 // 	{
-// 		printf("%s",line);
-// 		free(line);
+// 		printf("%s\n",get_next_line(fd));
+// 		printf("%s",get_next_line(fd2));
 // 	}
 // 	close(fd);
 // }

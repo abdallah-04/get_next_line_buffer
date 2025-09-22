@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amufleh <amufleh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/21 15:27:09 by amufleh           #+#    #+#             */
-/*   Updated: 2025/09/22 10:06:54 by amufleh          ###   ########.fr       */
+/*   Created: 2025/09/22 10:03:32 by amufleh           #+#    #+#             */
+/*   Updated: 2025/09/22 10:10:07 by amufleh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 
 # endif
 # include <unistd.h>
-# include <sys/stat.h>
 # include <fcntl.h>
+# include <sys/stat.h>
 # include <stdio.h>
 # include <stdlib.h>
 
