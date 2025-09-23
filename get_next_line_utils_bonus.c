@@ -6,7 +6,7 @@
 /*   By: amufleh <amufleh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:02:07 by amufleh           #+#    #+#             */
-/*   Updated: 2025/09/22 09:02:12 by amufleh          ###   ########.fr       */
+/*   Updated: 2025/09/23 09:18:55 by amufleh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,10 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (NULL);
 	new_str = malloc(((len1 + len2) + 1) * sizeof(char));
 	if (!new_str)
+	{
+		free (s1);
 		return (NULL);
+	}
 	ft_strcpy(new_str, s1);
 	ft_strcpy(new_str + len1, s2);
 	free(s1);

@@ -6,7 +6,7 @@
 /*   By: amufleh <amufleh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 12:59:52 by amufleh           #+#    #+#             */
-/*   Updated: 2025/09/22 09:00:16 by amufleh          ###   ########.fr       */
+/*   Updated: 2025/09/23 10:19:08 by amufleh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,15 +116,15 @@ char	*get_next_line(int fd)
 	}
 	return (line);
 }
-// int main()
-// {
-// 	int fd = open("text.txt", O_RDONLY | O_CREAT, 0644);
-// 	char *line;
-// 	printf("%s",get_next_line(41));
-// 	while((line = get_next_line(-1)))
-// 	{
-// 		printf("%s",line);
-// 		free(line);
-// 	}
-// 	close(fd);
-// }
+int main()
+{
+	int fd = open("text.txt", O_RDONLY | O_CREAT, 0644);
+	char *line;
+	printf("%s",get_next_line(41));
+	while((line = get_next_line(-1)))
+	{
+		printf("%s",line);
+		free(line);
+	}
+	close(fd);
+}
